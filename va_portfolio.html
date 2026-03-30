@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Mercer — Virtual Assistant Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #0f0f1a;
+  --bg3: #13131f;
+  --card: #111120;
+  --border: rgba(255,255,255,0.07);
+  --gold: #c9a84c;
+  --gold2: #e8c76a;
+  --gold-glow: rgba(201,168,76,0.15);
+  --teal: #4ecdc4;
+  --teal-dim: rgba(78,205,196,0.1);
+  --rose: #f78ca0;
+  --text: #e8e6e0;
+  --muted: rgba(232,230,224,0.45);
+  --dim: rgba(232,230,224,0.25);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1000;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 5%;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  animation: fadeDown 0.8s ease both;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex; gap: 2.2rem; list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 0.55rem 1.4rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 5% 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 65%);
+  top: -200px; right: -150px;
+  pointer-events: none;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.hero-glow2 {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(78,205,196,0.08) 0%, transparent 65%);
+  bottom: -100px; left: 10%;
+  pointer-events: none;
+  animation: pulse 8s ease-in-out infinite reverse;
+}
+
+.hero-left { animation: fadeUp 1s ease 0.2s both; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.5rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--teal);
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 5.5vw, 5.8rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+
+.hero-name span {
+  display: block;
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.8rem;
+  border-left: 2px solid var(--gold);
+  padding-left: 1rem;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 420px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.3); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-right {
+  display: flex; justify-content: center; align-items: center;
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+.hero-card {
+  position: relative;
+  width: 340px;
+}
+
+.avatar-ring {
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  margin: 0 auto 0;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.avatar-ring::before {
+  content: '';
+  position: absolute; inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold), var(--teal), var(--gold));
+  animation: spin 8s linear infinite;
+  opacity: 0.7;
+}
+
+.avatar-inner {
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: var(--card);
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  border: 4px solid var(--bg);
+}
+
+.stat-chips {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.75rem; margin-top: 1.8rem;
+}
+
+.stat-chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+
+.stat-chip .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-chip .lbl {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ── SECTION COMMONS ── */
+section { padding: 6rem 5%; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 22px; height: 1px; background: var(--teal);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 5%;
+}
+
+/* ── SKILLS ── */
+#skills { background: var(--bg2); }
+
+.skills-header { margin-bottom: 3.5rem; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.skill-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--teal));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.skill-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+.skill-card:hover::before { opacity: 1; }
+
+.skill-icon {
+  font-size: 2rem;
+  margin-bottom: 0.9rem;
+  display: block;
+}
+
+.skill-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.skill-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.skill-tags {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+}
+
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--gold);
+}
+
+.tag.teal {
+  background: var(--teal-dim);
+  border-color: rgba(78,205,196,0.25);
+  color: var(--teal);
+}
+
+.tag.rose {
+  background: rgba(247,140,160,0.1);
+  border-color: rgba(247,140,160,0.25);
+  color: var(--rose);
+}
+
+/* ── SERVICES ── */
+#services { background: var(--bg); }
+
+.services-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 3.5rem;
+}
+
+.services-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.service-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.service-item.active,
+.service-item:hover {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.service-item.active .service-item-num { color: var(--gold); }
+
+.service-item-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  min-width: 2rem;
+  transition: color 0.25s;
+}
+
+.service-item-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.services-detail {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.service-detail-icon { font-size: 2.8rem; margin-bottom: 1.2rem; display: block; }
+
+.service-detail-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.service-detail-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+}
+
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+.service-features li {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.service-features li::before {
+  content: '→';
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* ── PROJECTS ── */
+#projects { background: var(--bg2); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.project-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+.project-thumb {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-thumb.gold { background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05)); }
+.project-thumb.teal { background: linear-gradient(135deg, rgba(78,205,196,0.15), rgba(78,205,196,0.05)); }
+.project-thumb.rose { background: linear-gradient(135deg, rgba(247,140,160,0.15), rgba(247,140,160,0.05)); }
+.project-thumb.purple { background: linear-gradient(135deg, rgba(155,120,240,0.15), rgba(155,120,240,0.05)); }
+.project-thumb.blue { background: linear-gradient(135deg, rgba(99,155,255,0.15), rgba(99,155,255,0.05)); }
+.project-thumb.green { background: linear-gradient(135deg, rgba(100,210,150,0.15), rgba(100,210,150,0.05)); }
+
+.project-body { padding: 1.5rem; }
+
+.project-category {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+
+.project-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.project-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.project-meta {
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.project-tools {
+  display: flex; gap: 0.4rem; flex-wrap: wrap;
+}
+
+.project-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  transition: border-color 0.2s;
+}
+.project-link:hover { border-color: var(--gold); }
+
+/* ── TOOLS ── */
+#tools { background: var(--bg); }
+
+.tools-header { margin-bottom: 3.5rem; }
+
+.tools-categories { display: flex; flex-direction: column; gap: 2.5rem; }
+
+.tool-category-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tools-row {
+  display: flex; flex-wrap: wrap; gap: 0.7rem;
+}
+
+.tool-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: all 0.25s;
+}
+
+.tool-badge:hover {
+  border-color: rgba(201,168,76,0.35);
+  background: rgba(201,168,76,0.05);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.tool-badge .tool-icon { font-size: 1rem; }
+
+/* ── TESTIMONIALS ── */
+#testimonials { background: var(--bg2); }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: 0.5rem; right: 1.5rem;
+  line-height: 1;
+}
+
+.testimonial-stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex; align-items: center; gap: 0.8rem;
+}
+
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+}
+
+.author-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+}
+
+.author-role {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── PROCESS ── */
+#process { background: var(--bg); }
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 3.5rem;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: calc(12.5% + 1.5rem);
+  right: calc(12.5% + 1.5rem);
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--teal), var(--gold));
+  opacity: 0.35;
+}
+
+.process-step {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.step-num {
+  width: 4rem; height: 4rem;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  position: relative; z-index: 1;
+  transition: all 0.3s;
+}
+
+.process-step:hover .step-num {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201,168,76,0.3);
+}
+
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── CONTACT ── */
+#contact { background: var(--bg2); }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 3.5rem;
+}
+
+.contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.contact-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.contact-item-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+.contact-item-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.15rem;
+}
+
+.contact-item-value {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.contact-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.form-group { margin-bottom: 1.2rem; }
+
+.form-label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.25s;
+  appearance: none;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(201,168,76,0.5);
+}
+
+.form-textarea { resize: vertical; min-height: 110px; }
+
+.form-select option { background: var(--bg2); }
+
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 0.5rem;
+}
+
+.form-submit:hover {
+  background: var(--gold2);
+  box-shadow: 0 8px 25px rgba(201,168,76,0.3);
+  transform: translateY(-1px);
+}
+
+/* ── AVAILABILITY ── */
+.availability-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #64d296;
+  background: rgba(100,210,150,0.1);
+  border: 1px solid rgba(100,210,150,0.25);
+  border-radius: 100px;
+  padding: 0.3rem 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.availability-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #64d296;
+  animation: blink 1.6s ease infinite;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: var(--dim);
+  font-family: 'DM Mono', monospace;
+}
+
+.footer-links {
+  display: flex; gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.7; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-right { margin-top: 3rem; }
+  .hero-desc { margin: 0 auto 2.5rem; }
+  .hero-actions { justify-content: center; }
+  .hero-title { border-left: none; padding-left: 0; border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block; }
+  .hero-eyebrow { justify-content: center; }
+  .services-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .process-steps::before { display: none; }
+  .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+  nav { padding: 1rem 5%; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Alex Mercer</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-left">
+    <div class="availability-badge">
+      <span class="availability-dot"></span>
+      Available for new clients
+    </div>
+    <div class="hero-eyebrow">Virtual Assistant</div>
+    <h1 class="hero-name">
+      Alex<br><span>Mercer</span>
+    </h1>
+    <p class="hero-title">// Productivity Specialist & Digital Operations Expert</p>
+    <p class="hero-desc">
+      Transforming chaotic workflows into seamless systems. I handle documents, 
+      data, research, scheduling, and communications so you can focus on what truly matters.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-secondary">Let's Talk</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="avatar-ring">
+        <div class="avatar-inner">🧑‍💻</div>
+      </div>
+      <div class="stat-chips">
+        <div class="stat-chip">
+          <div class="num">5+</div>
+          <div class="lbl">Years Experience</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">120+</div>
+          <div class="lbl">Clients Served</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">98%</div>
+          <div class="lbl">Satisfaction Rate</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">2hr</div>
+          <div class="lbl">Avg Response Time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-header reveal">
+    <div class="section-label">What I Do Best</div>
+    <h2 class="section-title">Core Competencies</h2>
+    <p class="section-sub">A full suite of virtual assistant capabilities — from document creation to data research — powered by the latest productivity tools and AI systems.</p>
+  </div>
+
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📄</span>
+      <div class="skill-name">Document Creation & Editing</div>
+      <p class="skill-desc">Professional Word documents, reports, memos, templates, and proposals. Full formatting with tables of contents, headings, and branded letterheads.</p>
+      <div class="skill-tags">
+        <span class="tag">MS Word</span>
+        <span class="tag">Google Docs</span>
+        <span class="tag teal">Formatting</span>
+        <span class="tag teal">Templates</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📊</span>
+      <div class="skill-name">Spreadsheet & Data Management</div>
+      <p class="skill-desc">Excel and Google Sheets wizardry — pivot tables, formulas, data cleaning, dashboards, and automated reporting pipelines.</p>
+      <div class="skill-tags">
+        <span class="tag">Excel</span>
+        <span class="tag">Google Sheets</span>
+        <span class="tag teal">Data Cleaning</span>
+        <span class="tag rose">Automation</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🎞️</span>
+      <div class="skill-name">Presentation Design</div>
+      <p class="skill-desc">Compelling slide decks in PowerPoint and Google Slides. Pitch decks, investor presentations, and training materials with polished visual storytelling.</p>
+      <div class="skill-tags">
+        <span class="tag">PowerPoint</span>
+        <span class="tag">Google Slides</span>
+        <span class="tag teal">Visual Design</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📑</span>
+      <div class="skill-name">PDF Management</div>
+      <p class="skill-desc">Extract text, merge/split files, fill forms, add watermarks, OCR scanned documents, and encrypt sensitive PDFs with precision.</p>
+      <div class="skill-tags">
+        <span class="tag">PDF Tools</span>
+        <span class="tag teal">OCR</span>
+        <span class="tag rose">Form Filling</span>
+        <span class="tag">Encryption</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🔍</span>
+      <div class="skill-name">Research & Web Search</div>
+      <p class="skill-desc">Deep-dive market research, competitor analysis, lead sourcing, and fact-checking. Synthesized reports that save you hours of manual browsing.</p>
+      <div class="skill-tags">
+        <span class="tag">Market Research</span>
+        <span class="tag teal">Lead Gen</span>
+        <span class="tag rose">Analysis</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📧</span>
+      <div class="skill-name">Email & Calendar Management</div>
+      <p class="skill-desc">Inbox zero strategies, professional email drafting, scheduling coordination, meeting notes, and follow-up sequences that never miss a beat.</p>
+      <div class="skill-tags">
+        <span class="tag">Gmail</span>
+        <span class="tag">Outlook</span>
+        <span class="tag teal">Calendly</span>
+        <span class="tag rose">Scheduling</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🗄️</span>
+      <div class="skill-name">File Organisation & Reading</div>
+      <p class="skill-desc">Systematic file management across cloud platforms, document indexing, content extraction, and data migration with zero information loss.</p>
+      <div class="skill-tags">
+        <span class="tag">Google Drive</span>
+        <span class="tag">Dropbox</span>
+        <span class="tag teal">Indexing</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🤖</span>
+      <div class="skill-name">AI-Powered Workflows</div>
+      <p class="skill-desc">Leveraging cutting-edge AI tools including Claude, ChatGPT, and automation platforms to 10x output quality and dramatically cut turnaround time.</p>
+      <div class="skill-tags">
+        <span class="tag rose">Claude AI</span>
+        <span class="tag rose">ChatGPT</span>
+        <span class="tag teal">Automation</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">📱</span>
+      <div class="skill-name">Social Media & Content</div>
+      <p class="skill-desc">Content calendars, caption writing, post scheduling, hashtag research, and basic graphic creation for consistent brand presence across platforms.</p>
+      <div class="skill-tags">
+        <span class="tag">Buffer</span>
+        <span class="tag">Canva</span>
+        <span class="tag teal">Copywriting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="section-label">Offerings</div>
+    <h2 class="section-title">Service Packages</h2>
+    <p class="section-sub">Flexible engagement models tailored to fit solo founders, growing teams, and established enterprises.</p>
+  </div>
+
+  <div class="services-layout reveal">
+    <div class="services-list" id="serviceList">
+      <div class="service-item active" onclick="selectService(0)">
+        <span class="service-item-num">01</span>
+        <span class="service-item-name">Executive Assistant</span>
+      </div>
+      <div class="service-item" onclick="selectService(1)">
+        <span class="service-item-num">02</span>
+        <span class="service-item-name">Research & Reports</span>
+      </div>
+      <div class="service-item" onclick="selectService(2)">
+        <span class="service-item-num">03</span>
+        <span class="service-item-name">Document Production</span>
+      </div>
+      <div class="service-item" onclick="selectService(3)">
+        <span class="service-item-num">04</span>
+        <span class="service-item-name">Data & Spreadsheets</span>
+      </div>
+      <div class="service-item" onclick="selectService(4)">
+        <span class="service-item-num">05</span>
+        <span class="service-item-name">Presentation Design</span>
+      </div>
+      <div class="service-item" onclick="selectService(5)">
+        <span class="service-item-num">06</span>
+        <span class="service-item-name">Project Coordination</span>
+      </div>
+    </div>
+
+    <div class="services-detail" id="serviceDetail">
+      <span class="service-detail-icon" id="sIcon">🎯</span>
+      <div class="service-detail-name" id="sName">Executive Assistant</div>
+      <p class="service-detail-desc" id="sDesc">Full-spectrum executive support covering inbox management, calendar coordination, travel arrangements, and stakeholder communications. Your right hand in the digital world, keeping operations smooth and priorities clear.</p>
+      <ul class="service-features" id="sFeatures">
+        <li>Email triage, drafting, and management across all platforms</li>
+        <li>Calendar scheduling, appointment setting, and conflict resolution</li>
+        <li>Travel research, booking, and itinerary preparation</li>
+        <li>Meeting notes, action items, and follow-up tracking</li>
+        <li>CRM updates, contact management, and outreach support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">A curated selection of high-impact deliverables across industries and disciplines.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-thumb gold">📈</div>
+      <div class="project-body">
+        <div class="project-category">Data Management</div>
+        <div class="project-title">FinTech Startup KPI Dashboard</div>
+        <p class="project-desc">Built a real-time Excel dashboard consolidating 8 data sources into a single executive view with automated alerts and weekly trend visualizations.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag">Excel</span>
+            <span class="tag teal">Power Query</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb teal">📋</div>
+      <div class="project-body">
+        <div class="project-category">Document Production</div>
+        <div class="project-title">100-Page Annual Report</div>
+        <p class="project-desc">Produced a branded, formatted annual report for a non-profit, including infographics, financial tables, and board-ready executive summaries.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag">MS Word</span>
+            <span class="tag rose">Canva</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb rose">🔬</div>
+      <div class="project-body">
+        <div class="project-category">Research</div>
+        <div class="project-title">Competitor Intelligence Brief</div>
+        <p class="project-desc">Deep-dive research across 12 competitors for a SaaS founder — pricing analysis, feature comparison, and strategic gap identification in a 35-page report.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag teal">Web Research</span>
+            <span class="tag">Analysis</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb purple">🎨</div>
+      <div class="project-body">
+        <div class="project-category">Presentation Design</div>
+        <div class="project-title">Series A Pitch Deck</div>
+        <p class="project-desc">Transformed raw founder notes into a polished 18-slide investor deck for a climate tech startup. They successfully raised $2.4M.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag">PowerPoint</span>
+            <span class="tag rose">Design</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb blue">📬</div>
+      <div class="project-body">
+        <div class="project-category">Email Automation</div>
+        <div class="project-title">Cold Outreach Campaign System</div>
+        <p class="project-desc">Designed and executed a 5-step email sequence for a B2B consultancy, achieving a 34% open rate and 12% reply rate over 6 weeks.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag teal">Mailchimp</span>
+            <span class="tag">Copywriting</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb green">🗃️</div>
+      <div class="project-body">
+        <div class="project-category">Operations</div>
+        <div class="project-title">SOP Library Build-Out</div>
+        <p class="project-desc">Documented 40+ standard operating procedures for a remote-first agency, enabling faster onboarding and 60% fewer repeated questions.</p>
+        <div class="project-meta">
+          <div class="project-tools">
+            <span class="tag">Notion</span>
+            <span class="tag teal">Documentation</span>
+          </div>
+          <a href="#" class="project-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="tools-header reveal">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title">Tools & Platforms</h2>
+    <p class="section-sub">A curated toolkit of best-in-class applications that power every engagement.</p>
+  </div>
+
+  <div class="tools-categories reveal">
+    <div>
+      <div class="tool-category-title">Document & Office</div>
+      <div class="tools-row">
+        <div class="tool-badge"><span class="tool-icon">📄</span> Microsoft Word</div>
+        <div class="tool-badge"><span class="tool-icon">📊</span> Excel</div>
+        <div class="tool-badge"><span class="tool-icon">🎞️</span> PowerPoint</div>
+        <div class="tool-badge"><span class="tool-icon">📝</span> Google Docs</div>
+        <div class="tool-badge"><span class="tool-icon">📈</span> Google Sheets</div>
+        <div class="tool-badge"><span class="tool-icon">🖥️</span> Google Slides</div>
+        <div class="tool-badge"><span class="tool-icon">📑</span> Adobe Acrobat</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tool-category-title">Communication & Scheduling</div>
+      <div class="tools-row">
+        <div class="tool-badge"><span class="tool-icon">📧</span> Gmail</div>
+        <div class="tool-badge"><span class="tool-icon">📨</span> Outlook</div>
+        <div class="tool-badge"><span class="tool-icon">💬</span> Slack</div>
+        <div class="tool-badge"><span class="tool-icon">📅</span> Google Calendar</div>
+        <div class="tool-badge"><span class="tool-icon">🗓️</span> Calendly</div>
+        <div class="tool-badge"><span class="tool-icon">🎥</span> Zoom</div>
+        <div class="tool-badge"><span class="tool-icon">🤝</span> MS Teams</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tool-category-title">Project Management</div>
+      <div class="tools-row">
+        <div class="tool-badge"><span class="tool-icon">🗒️</span> Notion</div>
+        <div class="tool-badge"><span class="tool-icon">📌</span> Trello</div>
+        <div class="tool-badge"><span class="tool-icon">✅</span> Asana</div>
+        <div class="tool-badge"><span class="tool-icon">🟣</span> Monday.com</div>
+        <div class="tool-badge"><span class="tool-icon">🔧</span> ClickUp</div>
+        <div class="tool-badge"><span class="tool-icon">📋</span> Basecamp</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tool-category-title">AI & Automation</div>
+      <div class="tools-row">
+        <div class="tool-badge"><span class="tool-icon">🤖</span> Claude AI</div>
+        <div class="tool-badge"><span class="tool-icon">💡</span> ChatGPT</div>
+        <div class="tool-badge"><span class="tool-icon">⚡</span> Zapier</div>
+        <div class="tool-badge"><span class="tool-icon">🔗</span> Make (Integromat)</div>
+        <div class="tool-badge"><span class="tool-icon">🎨</span> Canva</div>
+        <div class="tool-badge"><span class="tool-icon">📸</span> Midjourney</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tool-category-title">Cloud & File Storage</div>
+      <div class="tools-row">
+        <div class="tool-badge"><span class="tool-icon">☁️</span> Google Drive</div>
+        <div class="tool-badge"><span class="tool-icon">📦</span> Dropbox</div>
+        <div class="tool-badge"><span class="tool-icon">🔵</span> OneDrive</div>
+        <div class="tool-badge"><span class="tool-icon">🗃️</span> Box</div>
+        <div class="tool-badge"><span class="tool-icon">🌐</span> SharePoint</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal" style="text-align:center; margin-bottom:0;">
+    <div class="section-label" style="justify-content:center;">How I Work</div>
+    <h2 class="section-title" style="text-align:center;">My Process</h2>
+    <p class="section-sub" style="margin:0 auto; text-align:center;">A clear, collaborative workflow from first hello to final delivery.</p>
+  </div>
+
+  <div class="process-steps reveal">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery Call</div>
+      <p class="step-desc">We align on your goals, pain points, preferred tools, and communication style in a free 30-minute session.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Scope & Plan</div>
+      <p class="step-desc">I deliver a detailed proposal with timelines, deliverables, and pricing — no vague promises, just clear commitments.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Execute</div>
+      <p class="step-desc">Work begins with regular check-ins, proactive updates, and transparent progress tracking via your preferred PM tool.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Review & Refine</div>
+      <p class="step-desc">Two rounds of revisions included on every project. Your satisfaction is the only benchmark that matters.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal">
+    <div class="section-label">Social Proof</div>
+    <h2 class="section-title">What Clients Say</h2>
+    <p class="section-sub">Real words from real clients who've experienced the difference a dedicated VA makes.</p>
+  </div>
+
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">Alex transformed our chaotic operations overnight. The SOP library alone saved us from at least 3 onboarding disasters. Genuinely irreplaceable.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">👩‍💼</div>
+        <div>
+          <div class="author-name">Sarah K.</div>
+          <div class="author-role">CEO · Digital Agency</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">The pitch deck Alex built helped us close our seed round. Investors kept complimenting the clarity. Raised $800K in 6 weeks. Worth every penny.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">👨‍💻</div>
+        <div>
+          <div class="author-name">Marcus T.</div>
+          <div class="author-role">Founder · SaaS Startup</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">Fast, thorough, and incredibly professional. The competitor research report Alex delivered would have taken my team 3 weeks to produce in-house.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">👩‍🔬</div>
+        <div>
+          <div class="author-name">Priya M.</div>
+          <div class="author-role">VP Strategy · Consultancy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">My inbox went from anxiety-inducing to actually manageable. Alex's system is so clean that I now look forward to checking email. Never thought I'd say that.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🧑‍⚕️</div>
+        <div>
+          <div class="author-name">Dr. James O.</div>
+          <div class="author-role">Medical Director</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">The Excel dashboard Alex built consolidated data from 5 different tools into one beautiful view. Our Monday morning reports now take 10 minutes instead of 3 hours.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">👩‍💹</div>
+        <div>
+          <div class="author-name">Aisha R.</div>
+          <div class="author-role">Operations Manager · FinTech</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">I've worked with 4 VAs over 3 years. Alex is the only one who actually understood my business and anticipated needs before I even articulated them. Exceptional.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🧑‍🎨</div>
+        <div>
+          <div class="author-name">Leon F.</div>
+          <div class="author-role">Creative Director</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Start a Conversation</h2>
+    <p class="section-sub">Ready to reclaim your time? Let's build a working relationship that actually works.</p>
+  </div>
+
+  <div class="contact-layout">
+
+    <div class="contact-info reveal">
+      <div class="contact-item">
+        <span class="contact-item-icon">📍</span>
+        <div>
+          <div class="contact-item-label">Location</div>
+          <div class="contact-item-value">Remote · Available Worldwide</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">📧</span>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-value">alex@alexmercer.va</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">🕒</span>
+        <div>
+          <div class="contact-item-label">Working Hours</div>
+          <div class="contact-item-value">Mon – Fri, 8 AM – 6 PM WAT</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">⚡</span>
+        <div>
+          <div class="contact-item-label">Response Time</div>
+          <div class="contact-item-value">Within 2 business hours</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">💼</span>
+        <div>
+          <div class="contact-item-label">Current Availability</div>
+          <div class="contact-item-value" style="color:#64d296;">Open to new long-term clients</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-title">Send a Brief</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="Sarah">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Johnson">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="sarah@company.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Needed</label>
+        <select class="form-select">
+          <option value="">Select a service...</option>
+          <option>Executive Assistant</option>
+          <option>Document Production</option>
+          <option>Research & Reports</option>
+          <option>Data & Spreadsheets</option>
+          <option>Presentation Design</option>
+          <option>Project Coordination</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Brief</label>
+        <textarea class="form-textarea" placeholder="Describe your needs, timeline, and any specific requirements..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Alex Mercer</div>
+  <div class="footer-copy">© 2025 Alex Mercer · Virtual Assistant · All rights reserved</div>
+  <div class="footer-links">
+    <a href="#">LinkedIn</a>
+    <a href="#">Upwork</a>
+    <a href="#">Calendly</a>
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      const delay = e.target.dataset.delay || 0;
+      setTimeout(() => e.target.classList.add('visible'), delay * 100);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.dataset.delay = i % 4;
+  observer.observe(el);
+});
+
+// ── SERVICE SWITCHER ──
+const services = [
+  {
+    icon: '🎯',
+    name: 'Executive Assistant',
+    desc: 'Full-spectrum executive support covering inbox management, calendar coordination, travel arrangements, and stakeholder communications. Your right hand in the digital world, keeping operations smooth and priorities clear.',
+    features: [
+      'Email triage, drafting, and management across all platforms',
+      'Calendar scheduling, appointment setting, and conflict resolution',
+      'Travel research, booking, and itinerary preparation',
+      'Meeting notes, action items, and follow-up tracking',
+      'CRM updates, contact management, and outreach support'
+    ]
+  },
+  {
+    icon: '🔍',
+    name: 'Research & Reports',
+    desc: 'Comprehensive market research, competitive intelligence, and industry analysis delivered in well-structured, board-ready reports. I synthesize complex information into clear, actionable insights.',
+    features: [
+      'Competitor analysis with pricing and feature matrices',
+      'Market sizing and trend identification reports',
+      'Literature reviews and white paper research',
+      'Lead lists and prospect research with verified data',
+      'Custom report templates with your branding'
+    ]
+  },
+  {
+    icon: '📄',
+    name: 'Document Production',
+    desc: 'Professional Word documents, branded reports, formal correspondence, and template systems that make your communications look polished and authoritative every single time.',
+    features: [
+      'Annual reports, white papers, and policy documents',
+      'Letter templates, proposals, and client-facing materials',
+      'Table of contents, indexing, and navigation setup',
+      'Track changes, comments, and editorial coordination',
+      'PDF conversion, form creation, and digital signing setup'
+    ]
+  },
+  {
+    icon: '📊',
+    name: 'Data & Spreadsheets',
+    desc: 'From messy raw data to clean, insightful dashboards. Excel and Google Sheets expert-level work including formulas, pivot tables, macros, and automated reporting pipelines.',
+    features: [
+      'Data cleaning, deduplication, and transformation',
+      'Interactive dashboards with charts and conditional formatting',
+      'VLOOKUP, INDEX/MATCH, Power Query advanced formulas',
+      'Weekly/monthly automated reporting systems',
+      'CSV imports, data merging, and multi-sheet management'
+    ]
+  },
+  {
+    icon: '🎞️',
+    name: 'Presentation Design',
+    desc: 'From elevator pitches to investor decks to training materials — visual storytelling that communicates your message with clarity, confidence, and aesthetic precision.',
+    features: [
+      'Investor pitch decks and fundraising presentations',
+      'Corporate keynotes and conference slide decks',
+      'Training and onboarding presentation suites',
+      'Custom slide templates and brand guidelines',
+      'Infographic design and data visualisation'
+    ]
+  },
+  {
+    icon: '🗂️',
+    name: 'Project Coordination',
+    desc: 'Keeping complex, multi-stakeholder projects on track from kickoff to completion. I manage timelines, own action items, and make sure nothing falls through the cracks.',
+    features: [
+      'Project plan creation in Notion, Asana, or Trello',
+      'Weekly status reporting and stakeholder updates',
+      'Risk identification and mitigation tracking',
+      'Vendor coordination and contract management',
+      'Post-project retrospectives and SOP documentation'
+    ]
+  }
+];
+
+function selectService(idx) {
+  const items = document.querySelectorAll('.service-item');
+  items.forEach(i => i.classList.remove('active'));
+  items[idx].classList.add('active');
+
+  const s = services[idx];
+  document.getElementById('sIcon').textContent = s.icon;
+  document.getElementById('sName').textContent = s.name;
+  document.getElementById('sDesc').textContent = s.desc;
+  const ul = document.getElementById('sFeatures');
+  ul.innerHTML = s.features.map(f => `<li>${f}</li>`).join('');
+
+  const detail = document.getElementById('serviceDetail');
+  detail.style.opacity = '0';
+  detail.style.transform = 'translateY(10px)';
+  requestAnimationFrame(() => {
+    detail.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    detail.style.opacity = '1';
+    detail.style.transform = 'translateY(0)';
+  });
+}
+
+// ── FORM SUBMIT FEEDBACK ──
+document.querySelector('.form-submit').addEventListener('click', function() {
+  this.textContent = '✓ Message Sent!';
+  this.style.background = '#64d296';
+  setTimeout(() => {
+    this.textContent = 'Send Message →';
+    this.style.background = '';
+  }, 3000);
+});
+</script>
+</body>
+</html>
